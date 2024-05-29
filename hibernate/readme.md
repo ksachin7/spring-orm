@@ -26,6 +26,8 @@ With this practice project, I learned how to map Java classes to database tables
 - Conversely, within the Product entity, a @ManyToOne annotation is employed to establish a many-to-one relationship with the User entity. This annotation specifies the foreign key column (user_id) in the Product table that references the primary key of the User table.
 - Moreover, to facilitate wishlist functionality, an additional @OneToMany annotation is included in the User entity. This establishes a one-to-many relationship with the Wishlist entity, enabling each user to possess multiple wishlists. Correspondingly, within the Wishlist entity, a @ManyToOne annotation is utilized to establish a many-to-one relationship with the User entity, indicating that each wishlist belongs to a single user.
 
+<img src="img.png" alt="ER-diagram" width="420" height="auto" />
+
 ### Decision Criteria for DAOImpl:
 
 Whether to use DAO implementations or not depends on your project requirements and preferences. Here are some considerations:
