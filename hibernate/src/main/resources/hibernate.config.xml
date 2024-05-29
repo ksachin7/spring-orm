@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!--<!DOCTYPE hibernate-configuration PUBLIC-->
+<!--    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"-->
+<!--    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >-->
+
+<hibernate-configuration>
+  <session-factory>
+    <!-- Database Connection Settings -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_db</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">mysqls01)</property>
+
+    <!-- Auto DDL Generation -->
+    <property name="hibernate.hbm2ddl.auto">create</property>
+
+    <!-- Entity scanning settings -->
+    <property name="hibernate.archive.autodetect">class, hbm</property>
+    <property name="hibernate.package_to_scan">com.example.hibernate.model</property>
+
+    <!-- Enable SQL logging for debugging -->
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.format_sql">true</property>
+
+    <!-- Explicitly specify the mapping for User entity -->
+    <mapping class="com.example.hibernate.model.User"/>
+
+    <!-- Caching Settings -->
+<!--    <property name="hibernate.cache.use_second_level_cache">true</property>-->
+<!--    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>-->
+  </session-factory>
+</hibernate-configuration>
