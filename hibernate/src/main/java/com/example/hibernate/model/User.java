@@ -1,24 +1,39 @@
 package com.example.hibernate.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.*;
-import org.hibernate.annotations.*;
-//import org.hibernate.annotations.Cache;
-//import org.hibernate.annotations.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.OptimisticLock;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "hibernate_practice")
-//@Cacheable
-//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "userCache")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @ManyToMany
+    @JoinTable(name = "user_product",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products;
+
+    @ManyToMany
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
+
+    @ManyToOne
+    @JoinColumn(name = "wishlist_id")
+    private Wishlist wishlist;
 
     @NaturalId
     @Column(name = "unique_code", nullable = false, unique = true)
@@ -59,8 +74,8 @@ public class User {
     @OptimisticLock(excluded = true)
     private String someUntrackedField;
 
-//    @Embedded
-//    private Address address;
+    @Embedded
+    private Address address;
 
     public enum Status {
         ACTIVE,
@@ -68,28 +83,58 @@ public class User {
         DELETED
     }
 
-    // constructors
+    // constructors, getters, and setters
+
     public User() {}
 
-    public User(Long id, String uniqueCode, String name, String description, Status status, Date birthDate, int nonPersistentField, Date nextYearBirthday, String someUntrackedField) {
+    public User(Long id, List<Product> products, List<Role> roles, Wishlist wishlist, String uniqueCode, String name, String gender, String description, byte[] profileImg, Status status, Date birthDate, int nonPersistentField, Date nextYearBirthday, String someUntrackedField, Address address) {
         this.id = id;
+        this.products = products;
+        this.roles = roles;
+        this.wishlist = wishlist;
         this.uniqueCode = uniqueCode;
         this.name = name;
+        this.gender = gender;
         this.description = description;
+        this.profileImg = profileImg;
         this.status = status;
         this.birthDate = birthDate;
         this.nonPersistentField = nonPersistentField;
         this.nextYearBirthday = nextYearBirthday;
         this.someUntrackedField = someUntrackedField;
+        this.address = address;
     }
 
-    // getters and setters
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Wishlist getWishlist() {
+        return wishlist;
+    }
+
+    public void setWishlist(Wishlist wishlist) {
+        this.wishlist = wishlist;
     }
 
     public @NotNull String getUniqueCode() {
@@ -108,10 +153,13 @@ public class User {
         this.name = name;
     }
 
-    @Min(value = 18, message = "Age must be at least 18")
-    @Max(value = 100, message = "Age must be less than or equal to 100")
-    @Column(name = "age")
-    private int age;
+    public @NotEmpty(message = "Gender is required") String getGender() {
+        return gender;
+    }
+
+    public void setGender(@NotEmpty(message = "Gender is required") String gender) {
+        this.gender = gender;
+    }
 
     public String getDescription() {
         return description;
@@ -119,6 +167,14 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public byte[] getProfileImg() {
+        return profileImg;
+    }
+
+    public void setProfileImg(byte[] profileImg) {
+        this.profileImg = profileImg;
     }
 
     public Status getStatus() {
@@ -161,29 +217,11 @@ public class User {
         this.someUntrackedField = someUntrackedField;
     }
 
-    public @NotEmpty(message = "Gender is required") String getGender() {
-        return gender;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setGender(@NotEmpty(message = "Gender is required") String gender) {
-        this.gender = gender;
-    }
-
-    public byte[] getProfileImg() {
-        return profileImg;
-    }
-
-    public void setProfileImg(byte[] profileImg) {
-        this.profileImg = profileImg;
-    }
-
-    @Min(value = 18, message = "Age must be at least 18")
-    @Max(value = 100, message = "Age must be less than or equal to 100")
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(@Min(value = 18, message = "Age must be at least 18") @Max(value = 100, message = "Age must be less than or equal to 100") int age) {
-        this.age = age;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

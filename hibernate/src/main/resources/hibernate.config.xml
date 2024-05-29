@@ -26,11 +26,15 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
 
-    <!-- Explicitly specify the mapping for User entity -->
-    <mapping class="com.example.hibernate.model.User"/>
-
     <!-- Caching Settings -->
 <!--    <property name="hibernate.cache.use_second_level_cache">true</property>-->
 <!--    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>-->
+
+    <!-- Explicitly specify the mapping for User entity and place it at the bottom -->
+    <mapping class="com.example.hibernate.model.User"/>
+    <mapping class="com.example.hibernate.model.Wishlist"/>
+    <mapping class="com.example.hibernate.model.Address"/>
+    <mapping class="com.example.hibernate.model.Product"/>
+    <mapping class="com.example.hibernate.model.Role"/>
   </session-factory>
 </hibernate-configuration>
