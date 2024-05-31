@@ -1,40 +1,40 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!--<?xml version="1.0" encoding="utf-8" ?>-->
 <!--<!DOCTYPE hibernate-configuration PUBLIC-->
 <!--    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"-->
-<!--    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >-->
+<!--    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">-->
+<!--&lt;!&ndash;<!DOCTYPE hibernate-configuration PUBLIC&ndash;&gt;-->
+<!--&lt;!&ndash;    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"&ndash;&gt;-->
+<!--&lt;!&ndash;    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd" >&ndash;&gt;-->
 
-<hibernate-configuration>
-  <session-factory>
-    <!-- Database Connection Settings -->
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_db</property>
-    <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">mysqls01)</property>
+<!--<hibernate-configuration>-->
+<!--  <session-factory>-->
+<!--    &lt;!&ndash; Database Connection Settings &ndash;&gt;-->
+<!--    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>-->
+<!--    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>-->
+<!--    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate_db</property>-->
+<!--    <property name="hibernate.connection.username">root</property>-->
+<!--    <property name="hibernate.connection.password">mysqls01)</property>-->
 
-    <!-- Auto DDL Generation -->
-    <property name="hibernate.hbm2ddl.auto">create</property>
+<!--    &lt;!&ndash; Auto DDL Generation &ndash;&gt;-->
+<!--    <property name="hibernate.hbm2ddl.auto">create</property>-->
 
-    <!-- Entity scanning settings -->
-    <property name="hibernate.archive.autodetect">class, hbm</property>
-    <property name="hibernate.package_to_scan">com.example.hibernate.model</property>
+<!--    &lt;!&ndash; Entity scanning settings &ndash;&gt;-->
+<!--    <property name="hibernate.archive.autodetect">class, hbm</property>-->
+<!--    <property name="hibernate.package_to_scan">com.example.hibernate.model</property>-->
 
-    <!-- Enable SQL logging for debugging -->
-    <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.format_sql">true</property>
+<!--    &lt;!&ndash; Enable SQL logging for debugging &ndash;&gt;-->
+<!--    <property name="hibernate.show_sql">true</property>-->
+<!--    <property name="hibernate.format_sql">true</property>-->
 
-    <!-- Caching Settings -->
-<!--    <property name="hibernate.cache.use_second_level_cache">true</property>-->
-<!--    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>-->
+<!--    &lt;!&ndash; Caching Settings &ndash;&gt;-->
+<!--&lt;!&ndash;    <property name="hibernate.cache.use_second_level_cache">true</property>&ndash;&gt;-->
+<!--&lt;!&ndash;    <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>&ndash;&gt;-->
 
-    <!-- Explicitly specify the mapping for User entity and place it at the bottom -->
-    <mapping class="com.example.hibernate.model.User"/>
-    <mapping class="com.example.hibernate.model.Wishlist"/>
-    <mapping class="com.example.hibernate.model.Address"/>
-    <mapping class="com.example.hibernate.model.Product"/>
-    <mapping class="com.example.hibernate.model.Role"/>
-  </session-factory>
-</hibernate-configuration>
+<!--    &lt;!&ndash; Explicitly specify the mapping for User entity and place it at the bottom &ndash;&gt;-->
+<!--    <mapping class="com.example.hibernate.model.User"/>-->
+<!--    <mapping class="com.example.hibernate.model.Wishlist"/>-->
+<!--    <mapping class="com.example.hibernate.model.Address"/>-->
+<!--    <mapping class="com.example.hibernate.model.Product"/>-->
+<!--    <mapping class="com.example.hibernate.model.Role"/>-->
+<!--  </session-factory>-->
+<!--</hibernate-configuration>-->
