@@ -1,41 +1,26 @@
 package com.example.hibernate.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.*;
-import org.hibernate.annotations.Cache;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "hibernate_practice")
+@Table(name = "user")
 //@Cacheable
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "userCache")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @ManyToMany
-    @JoinTable(name = "user_product",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<Product> products;
-
-    @ManyToMany
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
-
-    @ManyToOne
-    @JoinColumn(name = "wishlist_id")
-    private Wishlist wishlist;
 
     @NaturalId
     @Column(name = "unique_code", nullable = false, unique = true)
@@ -85,15 +70,34 @@ public class User {
         DELETED
     }
 
-    // constructors, getters, and setters
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_product",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<UserOrders> orders= new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "wishlist_id")
+    private Wishlist wishlist;
+
+    // constructors, getters, and setters
     public User() {}
 
-    public User(Long id, List<Product> products, List<Role> roles, Wishlist wishlist, String uniqueCode, String name, String gender, String description, byte[] profileImg, Status status, Date birthDate, int nonPersistentField, Date nextYearBirthday, String someUntrackedField, Address address) {
+    public User(Long id, String uniqueCode, String name, String gender, String description, byte[] profileImg, Status status, Date birthDate, int nonPersistentField, Date nextYearBirthday, String someUntrackedField, Address address) {
         this.id = id;
-        this.products = products;
-        this.roles = roles;
-        this.wishlist = wishlist;
         this.uniqueCode = uniqueCode;
         this.name = name;
         this.gender = gender;
@@ -115,6 +119,14 @@ public class User {
         this.id = id;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     public List<Product> getProducts() {
         return products;
     }
@@ -123,12 +135,20 @@ public class User {
         this.products = products;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public List<UserOrders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<UserOrders> orders) {
+        this.orders = orders;
     }
 
     public Wishlist getWishlist() {
@@ -225,5 +245,28 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                "\n, roles=" + roles +
+                "\n, products=" + products +
+                "\n, cart=" + cart +
+                "\n, orders=" + orders +
+                "\n, wishlist=" + wishlist +
+                "\n, uniqueCode='" + uniqueCode + '\'' +
+                "\n, name='" + name + '\'' +
+                "\n, gender='" + gender + '\'' +
+                "\n, description='" + description + '\'' +
+                "\n, profileImg=" + Arrays.toString(profileImg) +
+                "\n, status=" + status +
+                "\n, birthDate=" + birthDate +
+                "\n, nonPersistentField=" + nonPersistentField +
+                "\n, nextYearBirthday=" + nextYearBirthday +
+                "\n, someUntrackedField='" + someUntrackedField + '\'' +
+                "\n, address=" + address +
+                '}';
     }
 }

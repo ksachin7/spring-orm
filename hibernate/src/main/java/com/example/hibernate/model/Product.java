@@ -2,6 +2,8 @@ package com.example.hibernate.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,15 +15,10 @@ public class Product {
     private Long id;
 
     @ManyToMany(mappedBy = "products")
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
-//    @ManyToMany(mappedBy = "products")
-//    private List<Wishlist> wishlists;
-    @ManyToMany
-    @JoinTable(name = "wishlist_product",
-            joinColumns = @JoinColumn(name = "product_id"),
-            inverseJoinColumns = @JoinColumn(name = "wishlist_id"))
-    private List<Wishlist> wishlists;
+    @ManyToMany(mappedBy = "products")
+    private List<Wishlist> wishlists = new ArrayList<>();
 
     @Column(length= 100, nullable = false)
     private String name;
@@ -30,21 +27,48 @@ public class Product {
     private double price;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PostLoad
+    public void postLoad() {
+        System.out.println("Product loaded: " + this);
+        // Additional operations after loading the product from the database
+    }
+
+    @PreRemove
+    public void preRemove() {
+        System.out.println("Preparing to remove Product: " + this);
+        // Additional operations before removing the product
+    }
+
+    @PostRemove
+    public void postRemove() {
+        System.out.println("Product removed: " + this);
+        // Additional operations after removing the product
+    }
 
     public Product() {
         // Initialize createdAt and updatedAt with current date/time
-        this.createdAt = new Date();
-        this.updatedAt = new Date();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
-    public Product(Long id, List<User> users, List<Wishlist> wishlists, String name, double price, Date createdAt, Date updatedAt) {
+    public Product(Long id, String name, double price, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.users = users;
-        this.wishlists = wishlists;
         this.name = name;
         this.price = price;
         this.createdAt = createdAt;
@@ -52,29 +76,12 @@ public class Product {
     }
 
     // getters and setters
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List<Wishlist> getWishlists() {
-        return wishlists;
-    }
-
-    public void setWishlists(List<Wishlist> wishlists) {
-        this.wishlists = wishlists;
     }
 
     public String getName() {
@@ -93,19 +100,19 @@ public class Product {
         this.price = price;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

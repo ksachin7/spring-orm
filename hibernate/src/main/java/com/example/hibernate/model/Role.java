@@ -2,6 +2,7 @@ package com.example.hibernate.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,17 +12,17 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
+    private String name;
+
     @ManyToMany(mappedBy = "roles")
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
     // Getters, setters, and constructor
-
-
     public Role() {}
 
-    public Role(Long id, List<User> users) {
-        this.id = id;
-        this.users = users;
+    public Role(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -30,6 +31,14 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<User> getUsers() {
