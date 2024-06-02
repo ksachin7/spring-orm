@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Bank Accounts</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+<h1>Bank Accounts</h1>
+<a class="plus" th:href="@{/accounts/new}">+ new account</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Holder Name</th>
+        <th>Balance</th>
+        <th>Created Date</th>
+        <th>Last Modified Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="account : ${accountPage.content}">
+        <td th:text="${account.id}">ID</td>
+        <td th:text="${account.holderName}">Holder Name</td>
+        <td th:text="${account.balance}">Balance</td>
+        <td th:text="${#temporals.format(account.createdDate, 'dd-MM-yyyy HH:mm')}">Created Date</td>
+        <td th:text="${#temporals.format(account.lastModifiedDate, 'dd-MM-yyyy HH:mm')}">Last Modified Date</td>
+        <td>
+            <a class="edit" th:href="@{/accounts/edit/{id}(id=${account.id})}">Edit</a>
+            <a class="delete" th:href="@{/accounts/delete/{id}(id=${account.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div>
+        <span class="prev" th:if="${accountPage.hasPrevious()}">
+            <a th:href="@{/accounts(page=${accountPage.number - 1})}">Previous</a>
+        </span>
+        <span class="next" th:if="${accountPage.hasNext()}">
+            <a th:href="@{/accounts(page=${accountPage.number + 1})}">Next</a>
+        </span>
+</div>
+</div>
+</body>
+</html>

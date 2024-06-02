@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Account Form</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+<h1>Account Form</h1>
+<form th:action="@{/accounts}" th:object="${account}" method="post">
+    <div>
+        <label for="holderName">Holder Name:</label>
+        <input id="holderName" type="text" th:field="*{holderName}">
+        <div class="err" th:if="${#fields.hasErrors('holderName')}" th:errors="*{holderName}"></div>
+    </div>
+    <div>
+        <label for="balance">Balance:</label>
+        <input id="balance" type="text" th:field="*{balance}">
+        <div class="err" th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}"></div>
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+</form>
+</div>
+</body>
+</html>
