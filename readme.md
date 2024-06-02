@@ -1,6 +1,6 @@
 # Spring ORM Practice
 
-**Project** : hibernate
+## **Project** : hibernate
 
 This project is a basic demonstration of setting up Hibernate for Spring applications to perform object-relational mapping (ORM).
 
@@ -23,3 +23,16 @@ This project is a basic demonstration of setting up Hibernate for Spring applica
 8. **Persisting Data:** Practiced persisting data to the database using Hibernate's session API.
 
 Through this project, I've gained practical experience in setting up Hibernate within a Spring application, defining entity mappings, managing sessions and transactions, and persisting data to the database efficiently. These skills are essential for building robust and scalable Spring applications that interact with relational databases using ORM frameworks like Hibernate.
+
+## **Project** : Bank-Account-Management-System
+
+This project provides a basic banking system with CRUD operations, exception handling, pagination, validation, and a Thymeleaf-based UI.
+
+**Practiced Concepts:**
+
+1. **CRUD Operations**: Practiced CRUD (Create, Read, Update, Delete) operations using Spring Data JPA for database interaction.
+2. **Pagination**: Implemented pagination with Spring Data JPA to efficiently retrieve large datasets by breaking them into manageable chunks.
+3. **Validation**: Utilized validation to ensure data integrity and enforce constraints on user input, improving the overall quality of the application.
+4. **H2 DB**: Employed H2 Database for its simplicity and convenience during development and testing, providing fast and lightweight data storage.
+
+Through this project, I gained practical experience in setting up Spring Data JPA and H2 Database, as well as performing CRUD operations and implementing pagination.
